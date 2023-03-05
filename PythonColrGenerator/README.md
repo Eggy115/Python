@@ -35,3 +35,9 @@ OR
          
 To change colour range edit `colours` array  
 Import time to add delay
+
+## Examples
+
+![image](https://user-images.githubusercontent.com/79756011/222980906-8bc6ae5f-1e89-4c33-8505-0d31c689449c.png)
+![image](https://user-images.githubusercontent.com/79756011/222980932-eaf74f10-8c5d-41f4-ac1d-6b25ca9b716f.png)
+![image](https://user-images.githubusercontent.com/79756011/222980992-4fc04ab7-b0e8-4c45-8912-2ff90f4d49d3.png)
