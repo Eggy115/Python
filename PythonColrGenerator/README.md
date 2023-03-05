@@ -18,7 +18,18 @@ python3 setup.py install
 ```
 Then download `main.py` or copy text
 ## Usage
-Run file as .py not .pyw  
-Syntax is `colour("Your text here")`  
+Run file as `.py` not `.pyw`  
+To import, use
+    
+    from main import *
+   
+OR
+    
+    import main
+    
+- `main.help()` displays for list of commands and help    
+- `main.test()` checks that it is working    
+- `main.matrix()` to 
+- `main.colour()` syntax is `colour("Your text here")`  
 To change colour range edit `colours` array  
 Import time to add delay
