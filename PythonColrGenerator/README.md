@@ -1,6 +1,7 @@
 # PythonColrGenerator
 ## Overview
-Generates coloured/rainbow text in terminal  
+Generates coloured/rainbow text in terminal    
+     
 ![image](https://user-images.githubusercontent.com/79756011/209720507-28d003b4-0e53-4ff6-9f0f-06bae2c0357d.png)
 ## Requirements
 - Tested on Windows 8, 8.1, 10, 11, Ubuntu 20.04.2 LTS x86_64 and Kali GNU/Linux Roll
