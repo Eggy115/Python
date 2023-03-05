@@ -17,6 +17,6 @@ class App(Frame):
 root = Tk()
 app=App(root)
 root.wm_title("Tkinter clock")
-root.geometry("200x200")
+root.geometry("200x180")
 root.after(1000, app.update_clock)
 root.mainloop()
