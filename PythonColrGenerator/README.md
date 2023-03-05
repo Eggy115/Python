@@ -37,7 +37,12 @@ To change colour range edit `colours` array
 Import time to add delay
 
 ## Examples
-
+     
+Importing `main` and then using the `help()` and `test()` functions     
 ![image](https://user-images.githubusercontent.com/79756011/222980906-8bc6ae5f-1e89-4c33-8505-0d31c689449c.png)
+
+After leaving the `matrix()` function for a few seconds     
 ![image](https://user-images.githubusercontent.com/79756011/222980932-eaf74f10-8c5d-41f4-ac1d-6b25ca9b716f.png)
-![image](https://user-images.githubusercontent.com/79756011/222980992-4fc04ab7-b0e8-4c45-8912-2ff90f4d49d3.png)
+       
+Using `colour("text")` to display a custom message            
+![image](https://user-images.githubusercontent.com/79756011/222980992-4fc04ab7-b0e8-4c45-8912-2ff90f4d49d3.png)    
