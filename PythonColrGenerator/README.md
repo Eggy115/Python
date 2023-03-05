@@ -30,6 +30,7 @@ OR
 - `main.help()` displays for list of commands and help    
 - `main.test()` checks that it is working    
 - `main.matrix()` to 
-- `main.colour()` syntax is `colour("Your text here")`  
+- `main.colour()` syntax is `colour("Your text here")`    
+         
 To change colour range edit `colours` array  
 Import time to add delay
