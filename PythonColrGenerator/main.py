@@ -33,15 +33,11 @@ Nulla bibendum tellus ac tincidunt volutpat.
 Donec vehicula leo ut lacus facilisis ornare. 
 Vestibulum vel nisi arcu.\n\n""")
 
-def matrix(i):
-    try:
-        i = int(i)
-    except:
-        i = int(1)
+def matrix():
     while(True):
         string = "0"
         for i in range(188):
-            string = string + str(randint(0,int(i)))
+            string = string + str(randint(0,1))
         colour(string)
 
 def help():
