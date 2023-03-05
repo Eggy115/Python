@@ -28,9 +28,9 @@ OR
     
     import main
     
-- `main.help()` displays for list of commands and help    
+- `main.help()` displays a list of commands and help    
 - `main.test()` checks that it is working    
-- `main.matrix()` to 
+- `main.matrix()` to show rainbow numbers in constant loop
 - `main.colour()` syntax is `colour("Your text here")`    
          
 To change colour range edit `colours` array  
