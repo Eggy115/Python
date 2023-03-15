@@ -12,6 +12,8 @@ def colour(string):
             if char == "\n":
                     num = 0
                     var = 0
+                    colours.append(str(colours[0]))
+                    colours.pop(0)  
             colour = colours[num]
 
             print(C().hex(colour, char), end="", flush=True)
@@ -21,6 +23,8 @@ def colour(string):
                     num = num + 1    
             if (int(num) + 1) > int(len(colours)):
                     num = 0
+    colours.append(str(colours[0]))
+    colours.pop(0)                      
 def test():
     colour("""\nLorem ipsum dolor sit amet, consectetur adipiscing elit.
 Nullam dapibus est sed tincidunt tincidunt. 
