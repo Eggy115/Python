@@ -1,0 +1,558 @@
+import time
+import os
+import sys
+import random
+
+def e(text, ltime):
+  class Print:
+    def __init__(obj, name):
+      obj.name = name
+    def myfunc(abc):
+      character_list = []
+      abc.name = str(abc.name)
+      for character in str(abc.name):
+        character_list.append(character)
+      counter = 0
+      for i in range(len(str(abc.name))):
+        if counter == len(str(abc.name)) - 1:
+          print(character_list[counter])
+          time.sleep(ltime)
+        else:
+          print(character_list[counter], end="", flush=True)
+          time.sleep(ltime)
+          counter = counter + 1
+  p1 = Print(text)
+  p1.myfunc()
+try:
+  e("Hello", 0)
+except:
+  print("didnt work")
+
+
+
+
+
+
+
+
+
+from random import randint
+import time
+
+rock = 0
+
+print("""
+mining sim
+""")
+
+while (True):
+  command = input("")
+
+  if command == "!help":
+    print("""
+!help
+!mine
+!vault
+""")
+
+  elif command == "!mine":
+    rockroll = randint(1, 100)
+    rock = int(rock) + rockroll
+    print("\nyou found " + str(rockroll) + " rocks and now you have " +
+          str(rock) + " rocks\n")
+  elif command == "!vault":
+    print("\nrock: " + str(rock) + "\n")
+
+
+
+from random import randint
+import threading
+import time
+
+visual = ("""
+battleships boarddddd
+  0 1 2 3 4 5 6 7 8 9
+0 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ 
+1 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ 
+2 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■   
+3 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+4 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+5 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+6 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+7 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+8 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+9 ■ ■ ■ ■ ■ ■ ■ ■ ■ ■
+""")
+print(visual)
+
+board = []
+roboboard = []
+count = 4
+
+while (count > 0):
+  b = input("place battleship ")
+
+  try:
+    int(b)
+    if b in board:
+      print("battleship already there")
+    else:
+      board.append(b)
+      count = count - 1
+
+  except:
+    print("not a number")
+
+count = 4
+while (count > 0):
+  comp1 = randint(0, 9)
+  comp2 = randint(0, 9)
+  b = str(comp1) + str(comp2)
+  if b in roboboard:
+    pass
+  else:
+    roboboard.append(b)
+    count = count - 1
+
+print("you", board)
+print("robot", roboboard)
+end = 1
+comptarget = 00
+while(end == 1):
+
+  fire = input("shoot ")
+  if fire in roboboard:
+    roboboard.remove(fire)
+    print(roboboard)
+    print("you hit")
+  
+  if comptarget == 00:
+    comp1 = randint(0, 9)
+    comp2 = randint(0, 9)
+    comptarget = str(comp1) + str(comp2)
+  print(comptarget)
+  if comptarget in board:
+    board.remove(comptarget)
+    print(board)
+    print("you got hit")
+    comptarget = int(comptarget) + 1
+  else:
+    comptarget = 00
+    
+  if roboboard == []:
+    print("you win")
+    end = 0
+  if board == []:
+    print("you lose")
+    end = 0
+
+
+
+from random import randint
+
+player1 = 0
+player2 = 0
+points = 0
+player = 1
+while (player1 < 100 and player2 < 100):
+  if player == 1:
+    print("player1", player1)
+    input("")
+  if player == 2:
+    print("player2", player2)
+    input("")
+  points = 0
+  piga = randint(1, 5)
+  pigb = randint(1, 5)
+
+  if piga == 1 and pigb == 1:
+    print("sider 1")
+    points = 1
+
+  if piga == 2 and pigb == 2:
+    print("sider 1")
+    points = 1
+
+  if piga == 1 and pigb == 2:
+    print("pigout")
+    player1 = 0
+
+  if piga == 2 and pigb == 1:
+    print("pigout")
+    player1 = 0
+
+  if piga == 3 and pigb == 3:
+    print("double trotter 20")
+    points = 20
+
+  if piga == 3 and pigb == 1:
+    print("trotter 5")
+    points = 5
+
+  if piga == 3 and pigb == 2:
+    print("trotter 5")
+    points = 5
+
+  if piga == 1 and pigb == 3:
+    print("trotter 5")
+    points = 5
+
+  if piga == 2 and pigb == 3:
+    print("trotter 5")
+    points = 5
+
+  if piga == 4 and pigb == 4:
+    print("double snouter 20")
+    points = 20
+
+  if piga == 5 and pigb == 5:
+    print("double razorback 20")
+    points = 20
+
+  if piga == 4 and pigb == 1:
+    print("snouter 5")
+    points = 5
+  if piga == 4 and pigb == 2:
+    print("snouter 5")
+    points = 5
+  if piga == 4 and pigb == 3:
+    print("snouter 5")
+    points = 5
+  if piga == 1 and pigb == 4:
+    print("snouter 5")
+    points = 5
+  if piga == 2 and pigb == 4:
+    print("snouter 5")
+    points = 5
+  if piga == 3 and pigb == 4:
+    print("snouter 5")
+    points = 5
+
+  if piga == 5 and pigb == 1:
+    print("razorback 5")
+    points = 5
+  if piga == 5 and pigb == 2:
+    print("razorback 5")
+    points = 5
+  if piga == 5 and pigb == 3:
+    print("razorback 5")
+    points = 5
+  if piga == 1 and pigb == 5:
+    print("razorback 5")
+    points = 5
+  if piga == 2 and pigb == 5:
+    print("razorback 5")
+    points = 5
+  if piga == 3 and pigb == 5:
+    print("razorback 5")
+    points = 5
+  if piga == 4 and pigb == 5:
+    print("razorback 5")
+    points = 5
+  if piga == 5 and pigb == 4:
+    print("razorback 5")
+    points = 5
+
+  if player == 1:
+    player1 = player1 + points
+    y = input("go again? y/n")
+    if y == "n":
+      player = 2
+    else:
+      player = 1
+
+  else:
+    player2 = player2 + points
+    y = input("go again? y/n")
+    if y == "n":
+      player = 1
+    else:
+      player = 2
+
+
+
+#setup
+import time
+from random import randint
+player = []
+dealer = []
+playerv = 0
+dealerv = 0
+playerl = 0
+dealerl = 0
+counter = 0
+
+#deal two random cards
+for i in range(2):
+    newc = randint(1,13)
+    player.append(newc)    
+    newc = randint(1,13)
+    dealer.append(newc)
+
+#show all cards, length
+playerl = len(player)
+dealerl = len(dealer)
+print("player", player, playerl)
+print("dealer", dealer, dealerl)
+print("")
+if 1 == 1:
+  counter = 0
+  playerv = 0
+  for i in range (playerl):
+    if player[counter] == 1:
+      print("ace 1")
+      playerv = playerv + 1
+    elif player[counter] == 13:
+      print("king 10")
+      playerv = playerv + 10
+    elif player[counter] == 12:
+      print("queen 10")
+      playerv = playerv + 10
+    elif player[counter] == 11:
+      print("jack 10")
+      playerv = playerv + 10
+    elif player[counter] > 1 and player[counter] < 11:
+      print("any other card", player[counter])
+      playerv = playerv + player[counter]    
+    counter = counter + 1
+  print("your current value is", playerv)
+
+print("")
+if 1 == 1:
+  counter = 0
+  dealerv = 0
+  for i in range (dealerl):
+    if dealer[counter] == 1:
+      print("ace 1")
+      dealerv = dealerv + 1
+    elif dealer[counter] == 13:
+      print("king 10")
+      dealerv = dealerv + 10
+    elif dealer[counter] == 12:
+      print("queen 10")
+      dealerv = dealerv + 10
+    elif dealer[counter] == 11:
+      print("jack 10")
+      dealerv = dealerv + 10
+    elif dealer[counter] > 1 and dealer[counter] < 11:
+      print("any other card", dealer[counter])
+      dealerv = dealerv + dealer[counter]    
+    counter = counter + 1
+  print("dealer current value is", dealerv)
+
+print("")
+
+sw = input("stick or twist? ")
+if sw == "stick":
+
+  print("your current value is", playerv)
+  print("dealer value is", dealerv)
+  if playerv == dealerv:
+    print("draw")
+  if playerv > dealerv:
+    print("player win")
+  if dealerv > playerv:
+    print("dealer win")
+    
+if sw == "twist":
+  newc = randint(1,13)
+  player.append(newc)   
+  playerl = len(player)
+  dealerl = len(dealer)
+  print("player", player, playerl)
+  print("dealer", dealer, dealerl)
+  print("")
+  counter = 0
+  playerv = 0
+  for i in range (playerl):
+    if player[counter] == 1:
+      print("ace 1")
+      playerv = playerv + 1
+    elif player[counter] == 13:
+      print("king 10")
+      playerv = playerv + 10
+    elif player[counter] == 12:
+      print("queen 10")
+      playerv = playerv + 10
+    elif player[counter] == 11:
+      print("jack 10")
+      playerv = playerv + 10
+    elif player[counter] > 1 and player[counter] < 11:
+      print("any other card", player[counter])
+      playerv = playerv + player[counter]    
+    counter = counter + 1
+  print("your current value is", playerv)
+  print("dealer value is", dealerv)
+
+  if playerv > 21:
+    print("youwent bust")
+    exit()
+  if playerv == dealerv: 
+    print("draw")
+  if playerv > dealerv:
+    print("player win")
+  if dealerv > playerv:
+    print("dealer win")
+
+
+
+
+
+counter = 1
+for counter in range (21):
+  square = counter * counter
+  print(square)
+  counter = counter + 1
+
+
+
+import random
+import time
+score = 0
+
+for i in range(10):
+    roll = randint(1,10)
+    roll2 = randint(1,10)
+    answer = roll * roll2
+    answer = int(answer)
+    print(str(roll) + "*" + str(roll2) + " ")
+  
+    q = input("")
+    q = int(q)
+    if q == answer:
+      score = score + 1
+      print("yes\n")
+    else:
+      print("no\n")
+  
+print(str(score) + "/10")
+
+
+
+import math
+from decimal import *
+import decimal
+
+change = []
+p = Decimal(input("enter money in pounds: "))
+
+tpound = p / 2
+print(p, "/ 2 =", tpound)
+a = math.floor(tpound)
+print(a, "x £2")
+p = p - int(a) - int(a)
+print(p, "left to go\n")
+change.append(a)
+
+pound = p / 1
+print(p, "/ 1 =", pound)
+a = math.floor(pound)
+print(a, "x £1")
+p = p - int(a)
+print(p, "left to go\n")
+change.append(a)
+
+fifty = p / Decimal('0.5')
+print(p, "/ 0.50 =", fifty)
+a = math.floor(fifty)
+print(a, "x £0.50")
+p = p - (Decimal(a) / 2)
+print(p, "left to go\n")
+change.append(a)
+
+ten = p / Decimal('0.1')
+print(p, "/ 0.1 =", ten)
+a = math.floor(ten)
+print(a, "x £0.10")
+p = p - (Decimal(a) / 10)
+print(p, "left to go\n")
+change.append(a)
+
+five = p / Decimal('0.05')
+print(p, "/ 0.05 =", five)
+a = math.floor(five)
+print(a, "x £0.05")
+p = p - (Decimal(a) / 20)
+print(p, "left to go\n")
+change.append(a)
+
+two = p / Decimal('0.02')
+print(p, "/ 0.02 =", two)
+a = math.floor(two)
+print(a, "x £0.02")
+p = p - (Decimal(a) / 50)
+print(p, "left to go\n")
+change.append(a)
+
+one = p / Decimal('0.01')
+print(p, "/ 0.01 =", one)
+a = math.floor(one)
+print(a, "x £0.01")
+p = p - (Decimal(a) / 100)
+print(p, "left to go\n")
+change.append(a)
+
+print(change)
+
+
+
+
+player = 1
+player1 = []
+player2 = []
+win = 0
+
+print("this is tanks\nwhen asked to put tank put number then number between 0 and 7 eg 56\n")
+
+print("PLAYER 1")
+for i in range(10):
+  a = int(input("where put TANK "))
+  if a > 77 or a < 0:
+    print("no. tank removed.")
+  else:
+    if a in player1:
+      print("no. tank removed.")
+    else:
+      player1.append(int(a))
+print(player1)
+
+print("\nPLAYER 2")
+for i in range(10):
+  a = int(input("where put TANK "))
+  if a > 77 or a < 0:
+    print("no. tank removed.")
+  else:
+    if a in player2:
+      print("no. tank removed.")
+    else:
+      player2.append(int(a))
+print(player2)
+
+for i in range(50):
+  print("\n")
+
+while(win == 0):
+  if player == 1:
+    print("\nPLAYER 1")
+    des = int(input("where do uwant to destory "))
+    if int(des) in player2:
+      player2.remove(des)
+      print("u got their tank. they now have " + str(len(player2)) + " tanks")
+      if len(player2) == 0:
+        print("player 1 win")
+        win = 1
+    player = 2
+
+  if player == 2:
+    if win == 1:
+      print("")
+    else:  
+      print("\nPLAYER 2")
+      des = int(input("where do uwant to destory "))
+      if int(des) in player1:
+        player1.remove(des)
+        print("u got their tank. they now have " + str(len(player1)) + " tanks")
+        if len(player1) == 0:
+          print("player 2 win")
+          win = 1
+      player = 1  
