@@ -16,7 +16,7 @@ This repository contains a collection of various different Python scripts, snipp
 To use the scripts in this repository, you will need to have Python installed on your system. You can download the latest version of Python from the official website at https://www.python.org/downloads/. You can then either clone the repository, download individual files, or copy and paste the code to use in your own projects. From there you can run them from the command line or simply open the file as `.py` or `.pyw`.
 
 ## Usage
-The usage instructions for each script are included in its respective readme file. Some scripts may require additional packages or libraries, which will also be listed in the readme file.
+The usage instructions for each script are included in its respective readme file or as comments. Some scripts may require additional packages or libraries, which will also be listed in the readme file or as comments in the code.
 
 ## Contributing
 Contributions are welcome! If you have a Python script that you would like to contribute to the repository, please open a pull request with your changes. Please make sure that your script is well-documented and adheres to the guidelines outlined in the [Contributing](./CONTRIBUTING.md) file.
