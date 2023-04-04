@@ -1,122 +1,108 @@
-#setup
-import time
-from random import randint
-player = []
-dealer = []
-playerv = 0
-dealerv = 0
-playerl = 0
-dealerl = 0
-counter = 0
+# BLACK JACK - CASINO
 
-#deal two random cards
-for i in range(2):
-    newc = randint(1,13)
-    player.append(newc)    
-    newc = randint(1,13)
-    dealer.append(newc)
+import random
 
-#show all cards, length
-playerl = len(player)
-dealerl = len(dealer)
-print("player", player, playerl)
-print("dealer", dealer, dealerl)
-print("")
-if 1 == 1:
-  counter = 0
-  playerv = 0
-  for i in range (playerl):
-    if player[counter] == 1:
-      print("ace 1")
-      playerv = playerv + 1
-    elif player[counter] == 13:
-      print("king 10")
-      playerv = playerv + 10
-    elif player[counter] == 12:
-      print("queen 10")
-      playerv = playerv + 10
-    elif player[counter] == 11:
-      print("jack 10")
-      playerv = playerv + 10
-    elif player[counter] > 1 and player[counter] < 11:
-      print("any other card", player[counter])
-      playerv = playerv + player[counter]    
-    counter = counter + 1
-  print("your current value is", playerv)
+deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4
 
-print("")
-if 1 == 1:
-  counter = 0
-  dealerv = 0
-  for i in range (dealerl):
-    if dealer[counter] == 1:
-      print("ace 1")
-      dealerv = dealerv + 1
-    elif dealer[counter] == 13:
-      print("king 10")
-      dealerv = dealerv + 10
-    elif dealer[counter] == 12:
-      print("queen 10")
-      dealerv = dealerv + 10
-    elif dealer[counter] == 11:
-      print("jack 10")
-      dealerv = dealerv + 10
-    elif dealer[counter] > 1 and dealer[counter] < 11:
-      print("any other card", dealer[counter])
-      dealerv = dealerv + dealer[counter]    
-    counter = counter + 1
-  print("dealer current value is", dealerv)
+random.shuffle(deck)
 
-print("")
+print(
+    "                       **********************************************************                                    "
+)
+print(
+    "                                   Welcome to the game Casino - BLACK JACK !                                         "
+)
+print(
+    "                       **********************************************************                                    "
+)
 
-sw = input("stick or twist? ")
-if sw == "stick":
+d_cards = []  # Initialising dealer's cards
+p_cards = []  # Initialising player's cards
 
-  print("your current value is", playerv)
-  print("dealer value is", dealerv)
-  if playerv == dealerv:
-    print("draw")
-  if playerv > dealerv:
-    print("player win")
-  if dealerv > playerv:
-    print("dealer win")
-    
-if sw == "twist":
-  newc = randint(1,13)
-  player.append(newc)   
-  playerl = len(player)
-  dealerl = len(dealer)
-  print("player", player, playerl)
-  print("dealer", dealer, dealerl)
-  print("")
-  counter = 0
-  playerv = 0
-  for i in range (playerl):
-    if player[counter] == 1:
-      print("ace 1")
-      playerv = playerv + 1
-    elif player[counter] == 13:
-      print("king 10")
-      playerv = playerv + 10
-    elif player[counter] == 12:
-      print("queen 10")
-      playerv = playerv + 10
-    elif player[counter] == 11:
-      print("jack 10")
-      playerv = playerv + 10
-    elif player[counter] > 1 and player[counter] < 11:
-      print("any other card", player[counter])
-      playerv = playerv + player[counter]    
-    counter = counter + 1
-  print("your current value is", playerv)
-  print("dealer value is", dealerv)
+while len(d_cards) != 2:
+    random.shuffle(deck)
+    d_cards.append(deck.pop())
+    if len(d_cards) == 2:
+        print("The cards dealer has are X ", d_cards[1])
 
-  if playerv > 21:
-    print("youwent bust")
+# Displaying the Player's cards
+while len(p_cards) != 2:
+    random.shuffle(deck)
+    p_cards.append(deck.pop())
+    if len(p_cards) == 2:
+        print("The total of player is ", sum(p_cards))
+        print("The cards Player has are  ", p_cards)
+
+if sum(p_cards) > 21:
+    print("You are BUSTED !\n  **************Dealer Wins !!******************\n")
     exit()
-  if playerv == dealerv: 
-    print("draw")
-  if playerv > dealerv:
-    print("player win")
-  if dealerv > playerv:
-    print("dealer win")
+
+if sum(d_cards) > 21:
+    print(
+        "Dealer is BUSTED !\n   ************** You are the Winner !!******************\n"
+    )
+    exit()
+
+if sum(d_cards) == 21:
+    print("***********************Dealer is the Winner !!******************")
+    exit()
+
+if sum(d_cards) == 21 and sum(p_cards) == 21:
+    print("*****************The match is tie !!*************************")
+    exit()
+
+
+def dealer_choice():
+    if sum(d_cards) < 17:
+        while sum(d_cards) < 17:
+            random.shuffle(deck)
+            d_cards.append(deck.pop())
+
+    print("Dealer has total " + str(sum(d_cards)) + "with the cards ", d_cards)
+
+    if sum(p_cards) == sum(d_cards):
+        print("***************The match is tie !!****************")
+        exit()
+
+    if sum(d_cards) == 21:
+        if sum(p_cards) < 21:
+            print("***********************Dealer is the Winner !!******************")
+        elif sum(p_cards) == 21:
+            print("********************There is tie !!**************************")
+        else:
+            print("***********************Dealer is the Winner !!******************")
+
+    elif sum(d_cards) < 21:
+        if sum(p_cards) < 21 and sum(p_cards) < sum(d_cards):
+            print("***********************Dealer is the Winner !!******************")
+        if sum(p_cards) == 21:
+            print("**********************Player is winner !!**********************")
+        if sum(p_cards) < 21 and sum(p_cards) > sum(d_cards):
+            print("**********************Player is winner !!**********************")
+
+    else:
+        if sum(p_cards) < 21:
+            print("**********************Player is winner !!**********************")
+        elif sum(p_cards) == 21:
+            print("**********************Player is winner !!**********************")
+        else:
+            print("***********************Dealer is the Winner !!******************")
+
+
+while sum(p_cards) < 21:
+
+    k = input("Want to hit or stay?\n Press 1 for hit and 0 for stay ")
+    if k == 1:
+        random.shuffle(deck)
+        p_cards.append(deck.pop())
+        print("You have a total of " + str(sum(p_cards)) + " with the cards ", p_cards)
+        if sum(p_cards) > 21:
+            print("*************You are BUSTED !*************\n Dealer Wins !!")
+        if sum(p_cards) == 21:
+            print(
+                "*******************You are the Winner !!*****************************"
+            )
+
+    else:
+        dealer_choice()
+        break
