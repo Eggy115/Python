@@ -1,144 +1,124 @@
-#!/usr/bin/env python
+# SNAKES GAME
+# Use ARROW KEYS to play, SPACE BAR for pausing/resuming and Esc Key for exiting
+# Original Author : Sanchit Gangwar
+# Modified by : Rayan Dutta
+# Minor changes made to keep the game working.
 
-import pygame
-import sys
-import time
-import random
+try:
+    import curses
+    from time import sleep
+    from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
+    from random import randint
 
-from pygame.locals import *
+    print(
+        "Use the arrow keys to move, press the space bar to pause, and press ESC to quit"
+    )
+    sleep(1)
+    key = KEY_RIGHT  # Initializing values
+    curses.initscr()
+    win = curses.newwin(20, 60, 0, 0)
+    win.keypad(1)
+    curses.noecho()
+    curses.curs_set(0)
+    win.border(0)
+    win.nodelay(1)
+    x, y = win.getmaxyx()
+    key = KEY_DOWN  # Initializing values
+    score = 0
+    s = open(".snake_highscore.txt", "r")
+    hscore = s.read()
+    s.close()
+    snake = [[4, 10], [4, 9], [4, 8]]  # Initial snake co-ordinates
+    food = [10, 20]  # First food co-ordinates
 
-FPS = 15
-pygame.init()
-fpsClock=pygame.time.Clock()
+    win.addch(food[0], food[1], "*")  # Prints or shows the food
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
-surface = pygame.Surface(screen.get_size())
-surface = surface.convert()
-surface.fill((255,255,255))
-clock = pygame.time.Clock()
+    while key != 27:  # While Esc key is not pressed
+        win.border(0)
+        win.addstr(0, 2, "Score : " + str(score) + " ")  # Printing 'Score' and
+        win.addstr(0, 27, " SNAKE ")  # 'SNAKE' strings
+        win.addstr(0, 37, "Highscore: " + str(hscore) + " ")
 
-pygame.key.set_repeat(1, 40)
+        win.timeout(
+            int(150 - (len(snake) / 5 + len(snake) / 10) % 120)
+        )  # Increases the speed of Snake as its length increases
 
-GRIDSIZE=10
-GRID_WIDTH = SCREEN_WIDTH / GRIDSIZE
-GRID_HEIGHT = SCREEN_HEIGHT / GRIDSIZE
-UP    = (0, -1)
-DOWN  = (0, 1)
-LEFT  = (-1, 0)
-RIGHT = (1, 0)
-    
-screen.blit(surface, (0,0))
+        prevKey = key  # Previous key pressed
+        event = win.getch()
+        key = key if event == -1 else event
 
-def draw_box(surf, color, pos):
-    r = pygame.Rect((pos[0], pos[1]), (GRIDSIZE, GRIDSIZE))
-    pygame.draw.rect(surf, color, r)
+        if key == ord(" "):  # If SPACE BAR is pressed, wait for another
+            key = -1  # one (Pause/Resume)
+            win.addstr(0, 40, "PAUSED")
+            while key != ord(" "):
+                key = win.getch()
+            key = prevKey
+            continue
 
-class Snake(object):
-    def __init__(self):
-        self.lose()
-        self.color = (0,0,0)
+        if key not in [
+            KEY_LEFT,
+            KEY_RIGHT,
+            KEY_UP,
+            KEY_DOWN,
+            27,
+        ]:  # If an invalid key is pressed
+            key = prevKey
 
-    def get_head_position(self):
-        return self.positions[0]
+        # Calculates the new coordinates of the head of the snake. NOTE: len(snake) increases.
+        # This is taken care of later at [1].
+        snake.insert(
+            0,
+            [
+                snake[0][0] + (key == KEY_DOWN and 1) + (key == KEY_UP and -1),
+                snake[0][1] + (key == KEY_LEFT and -1) + (key == KEY_RIGHT and 1),
+            ],
+        )
 
-    def lose(self):
-        self.length = 1
-        self.positions =  [((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))]
-        self.direction = random.choice([UP, DOWN, LEFT, RIGHT])
+        # If snake crosses the boundaries, make it enter from the other side
+        if snake[0][0] == 0:
+            snake[0][0] = 18
+        if snake[0][1] == 0:
+            snake[0][1] = 58
+        if snake[0][0] == 19:
+            snake[0][0] = 1
+        if snake[0][1] == 59:
+            snake[0][1] = 1
 
-    def point(self, pt):
-        if self.length > 1 and (pt[0] * -1, pt[1] * -1) == self.direction:
-            return
+        # Exit if snake crosses the boundaries (Uncomment to enable)
+        # if snake[0][0] == 0 or snake[0][0] == 19 or snake[0][1] == 0 or snake[0][1] == 59: break
+
+        # If snake runs over itself
+        if snake[0] in snake[1:]:
+            break
+
+        if snake[0] == food:  # When snake eats the food
+            food = []
+            score += 1
+            while food == []:
+                food = [
+                    randint(1, 18),
+                    randint(1, 58),
+                ]  # Calculating next food's coordinates
+                if food in snake:
+                    food = []
+            win.addch(food[0], food[1], "*")
         else:
-            self.direction = pt
-
-    def move(self):
-        cur = self.positions[0]
-        x, y = self.direction
-        new = (((cur[0]+(x*GRIDSIZE)) % SCREEN_WIDTH), (cur[1]+(y*GRIDSIZE)) % SCREEN_HEIGHT)
-        if len(self.positions) > 2 and new in self.positions[2:]:
-            self.lose()
-        else:
-            self.positions.insert(0, new)
-            if len(self.positions) > self.length:
-                self.positions.pop()
-    
-    def draw(self, surf):
-        for p in self.positions:
-            draw_box(surf, self.color, p)
-
-class Apple(object):
-    def __init__(self):
-        self.position = (0,0)
-        self.color = (255,0,0)
-        self.randomize()
-
-    def randomize(self):
-        self.position = (random.randint(0, GRID_WIDTH-1) * GRIDSIZE, random.randint(0, GRID_HEIGHT-1) * GRIDSIZE)
-
-    def draw(self, surf):
-        draw_box(surf, self.color, self.position)
-
-def check_eat(snake, apple):
-    if snake.get_head_position() == apple.position:
-        snake.length += 1
-        apple.randomize()
+            last = snake.pop()  # [1] If it does not eat the food, length decreases
+            win.addch(last[0], last[1], " ")
+        win.addch(snake[0][0], snake[0][1], "#")
 
 
-class Rock (object):
-    def __init__(self):
-        self.position = (0,0)
-        self.color = (160,80,30)
-        self.randomize()
+except KeyboardInterrupt or EOFError:
+    curses.endwin()
+    print("Score - " + str(score))
+    if score > int(hscore):
+        s = open(".snake_highscore.txt", "w")
+        s.write(str(score))
+        s.close()
 
-    def randomize(self):
-        self.position = (random.randint(0, GRID_WIDTH-1) * GRIDSIZE, random.randint(0, GRID_HEIGHT-1) * GRIDSIZE)    
-
-    def draw(self, surf):
-        draw_box(surf, self.color, self.position)
-
-def check_smash(snake, rock):
-    if snake.get_head_position() == rock.position:
-        snake.lose()
-        
-
-
-if __name__ == '__main__':
-    snake = Snake()
-    apple = Apple()
-    rock = Rock()
-    while True:
-
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == KEYDOWN:
-                if event.key == K_UP:
-                    snake.point(UP)
-                elif event.key == K_DOWN:
-                    snake.point(DOWN)
-                elif event.key == K_LEFT:
-                    snake.point(LEFT)
-                elif event.key == K_RIGHT:
-                    snake.point(RIGHT)
-
-
-        surface.fill((255,255,255))
-        snake.move()
-        check_eat(snake, apple)
-        check_smash(snake, rock)
-        snake.draw(surface)
-        apple.draw(surface)
-        rock.draw(surface)
-        font = pygame.font.Font(None, 36)
-        text = font.render(str(snake.length), 1, (10, 10, 10))
-        textpos = text.get_rect()
-        textpos.centerx = 20
-        surface.blit(text, textpos)
-        screen.blit(surface, (0,0))
-
-        pygame.display.flip()
-        pygame.display.update()
-        fpsClock.tick(FPS + snake.length/3)
+curses.endwin()
+if score > int(hscore):
+    s = open(".snake_highscore.txt", "w")
+    s.write(str(score))
+    s.close()
+print("Score - " + str(score))
