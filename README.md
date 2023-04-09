@@ -12,6 +12,8 @@
 
 This repository contains a collection of various different Python scripts, snippets, modules and packages. Folders contain multiple files or projects that require more indepth explanations.     
 
+**NOTE: Main index truncated, see [./more](./more) for more.
+
 ## Installation
 To use the scripts in this repository, you will need to have Python installed on your system. You can download the latest version of Python from the official website at https://www.python.org/downloads/. You can then either clone the repository, download individual files, or copy and paste the code to use in your own projects. From there you can run them from the command line or simply open the file as `.py` or `.pyw`.
 
